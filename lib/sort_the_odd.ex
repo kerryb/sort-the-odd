@@ -1,5 +1,5 @@
 defmodule SortTheOdd do
   def sort(list) do
-    list
+    Enum.sort list
   end
 end
