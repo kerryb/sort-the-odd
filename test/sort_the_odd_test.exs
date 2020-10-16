@@ -19,7 +19,18 @@ defmodule SortTheOddTest do
         odds == Enum.sort(odds)
       end
     end
+
+    property "leaves even numbers at the same position" do
+      forall list <- list_of_integers() do
+        original_evens_with_gaps = list |> Enum.map(&self_if_even_else_nil/1)
+        sorted_evens_with_gaps = list |> sort |> Enum.map(&self_if_even_else_nil/1)
+        original_evens_with_gaps == sorted_evens_with_gaps
+      end
+    end
   end
 
   defp list_of_integers, do: list(integer())
+
+  defp self_if_even_else_nil(number) when Integer.is_even(number), do: number
+  defp self_if_even_else_nil(_number), do: nil
 end
